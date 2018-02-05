@@ -34,6 +34,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-repeat'
+Plugin 'epeli/slimux'
+" assumes git installed fzf
+set rtp+=~/.fzf
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -48,12 +53,18 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-map <C-n> :NERDTreeToggle<CR>
+nmap <C-n> :NERDTreeToggle<CR>
 map <Leader>y "*y
 map <Leader>p "*p
-map <Leader>s yss 
+imap <Leader>s yss 
+vmap <Leader>s :SlimuxREPLSendSelection<CR> 
 map <Leader>o o<Esc>
 map <Leader>O O<Esc>
+map <Leader>a <esc>ggVG<CR>
+map <Leader>w :w<CR>
+map <Leader>W :s/\v(.{80}\,)/\1\r/g "wrap commas
+imap <c-x><c-f> <plug>(fzf-complete-path)
+
 
 " #syntastic
 " set statusline+=%#warningmsg#
@@ -64,6 +75,10 @@ map <Leader>O O<Esc>
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+
+" ctrlp
+let g:ctrlp_show_hidden = 1
 
 " general
 set history=1000         " remember more commands and search history
@@ -112,6 +127,11 @@ autocmd FileType gitcommit set spell
 autocmd BufWritePre *.py :%s/\s\+$//e
 " auto save
 autocmd FocusLost * nested silent! wall
+
+
+" python jedi don't show popup
+autocmd FileType python setlocal completeopt-=preview
+
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
   :colorscheme hybrid
