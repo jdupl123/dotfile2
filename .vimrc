@@ -36,7 +36,8 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-repeat'
-Plugin 'epeli/slimux'
+"Plugin 'epeli/slimux'
+Plugin 'ervandew/supertab'
 " assumes git installed fzf
 set rtp+=~/.fzf
 " All of your Plugins must be added before the following line
@@ -64,7 +65,7 @@ map <Leader>a <esc>ggVG<CR>
 map <Leader>w :w<CR>
 map <Leader>W :s/\v(.{80}\,)/\1\r/g "wrap commas
 imap <c-x><c-f> <plug>(fzf-complete-path)
-
+inoremap <expr> <c-x><c-j> fzf#complete("find ~/ -path '*/\.*' -prune -o -print \| sed '1d;s:^..::'")
 
 " #syntastic
 " set statusline+=%#warningmsg#
@@ -83,6 +84,7 @@ let g:ctrlp_show_hidden = 1
 " general
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
+set timeoutlen=1000 ttimeoutlen=0
 syntax on
 set smartindent
 set autoindent                             " Keep the indent when creating a new line
@@ -102,6 +104,7 @@ set noequalalways                          " Don't equalize when opening/closing
 " Searching
 set ignorecase                             " Ignore case by default when searching
 set smartcase                              " Switch to case sensitive mode if needle contains uppercase characters
+set incsearch
 
 " Moving around / editing
 set nostartofline                          " Avoid moving cursor to BOL when jumping around
@@ -130,7 +133,7 @@ autocmd FocusLost * nested silent! wall
 
 
 " python jedi don't show popup
-autocmd FileType python setlocal completeopt-=preview
+"autocmd FileType python setlocal completeopt-=preview
 
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
