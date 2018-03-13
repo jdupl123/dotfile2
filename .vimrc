@@ -56,6 +56,7 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 nmap <C-n> :NERDTreeToggle<CR>
 map <Leader>y "*y
+map <Leader>d "*ygvd
 map <Leader>p "*p
 imap <Leader>s yss 
 vmap <Leader>s :SlimuxREPLSendSelection<CR> 
@@ -66,6 +67,13 @@ map <Leader>w :w<CR>
 map <Leader>W :s/\v(.{80}\,)/\1\r/g "wrap commas
 imap <c-x><c-f> <plug>(fzf-complete-path)
 inoremap <expr> <c-x><c-j> fzf#complete("find ~/ -path '*/\.*' -prune -o -print \| sed '1d;s:^..::'")
+
+
+" settings
+set undofile " Maintain undo history between sessions
+set undodir=~/.vim/undodir
+set clipboard=unnamedplus
+
 
 " #syntastic
 " set statusline+=%#warningmsg#
