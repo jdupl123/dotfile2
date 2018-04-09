@@ -34,11 +34,15 @@ Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
+" assumes git installed fzf
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-repeat'
 "Plugin 'epeli/slimux'
 Plugin 'ervandew/supertab'
-" assumes git installed fzf
+Plugin 'alfredodeza/pytest.vim'
+Plugin 'dkprice/vim-easygrep'
+Plugin 'airblade/vim-gitgutter'
+
 set rtp+=~/.fzf
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,12 +71,21 @@ map <Leader>w :w<CR>
 map <Leader>W :s/\v(.{80}\,)/\1\r/g "wrap commas
 imap <c-x><c-f> <plug>(fzf-complete-path)
 inoremap <expr> <c-x><c-j> fzf#complete("find ~/ -path '*/\.*' -prune -o -print \| sed '1d;s:^..::'")
+nmap =j :%!python -m json.tool<CR>
+" Pytest
+nmap <silent><Leader>f <Esc>:Pytest file<CR>
+nmap <silent><Leader>c <Esc>:Pytest class<CR>
+nmap <silent><Leader>m <Esc>:Pytest method<CR>
 
+" navigation
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 " settings
 set undofile " Maintain undo history between sessions
 set undodir=~/.vim/undodir
-set clipboard=unnamedplus
 
 
 " #syntastic
@@ -84,8 +97,8 @@ set clipboard=unnamedplus
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-
+"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_python_checkers = ['mypy --ignore-missing-imports', 'flake8']
 " ctrlp
 let g:ctrlp_show_hidden = 1
 
@@ -98,6 +111,7 @@ set smartindent
 set autoindent                             " Keep the indent when creating a new line
 set shiftwidth=4
 set expandtab
+set list!
 set listchars=trail:.,tab:▸\ ,eol:¬        " Change the invisible characters
 set ttyfast                                " More smooth screen redrawing
 set ruler                                  " Show ruler
@@ -138,6 +152,8 @@ autocmd FileType gitcommit set spell
 autocmd BufWritePre *.py :%s/\s\+$//e
 " auto save
 autocmd FocusLost * nested silent! wall
+
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 
 
 " python jedi don't show popup
