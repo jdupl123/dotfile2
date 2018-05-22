@@ -39,6 +39,7 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-repeat'
 "Plugin 'epeli/slimux'
 Plugin 'ervandew/supertab'
+Plugin 'tell-k/vim-autopep8'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'airblade/vim-gitgutter'
@@ -112,7 +113,7 @@ set autoindent                             " Keep the indent when creating a new
 set shiftwidth=4
 set expandtab
 set list!
-set listchars=trail:.,tab:▸\ ,eol:¬        " Change the invisible characters
+set listchars=trail:.,tab:▸\ ,eol:¬,space:.       " Change the invisible characters
 set ttyfast                                " More smooth screen redrawing
 set ruler                                  " Show ruler
 set linespace=2                            " Spacing between lines
@@ -154,11 +155,23 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 autocmd FocusLost * nested silent! wall
 
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 
 " python jedi don't show popup
 "autocmd FileType python setlocal completeopt-=preview
 
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
   :colorscheme hybrid
