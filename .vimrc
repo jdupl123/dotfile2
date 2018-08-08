@@ -43,6 +43,11 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'slim-template/vim-slim.git'
+Plugin 'cakebaker/scss-syntax.vim'
 
 set rtp+=~/.fzf
 " All of your Plugins must be added before the following line
@@ -100,6 +105,7 @@ set undodir=~/.vim/undodir
 " let g:syntastic_check_on_wq = 0
 "let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_python_checkers = ['mypy --ignore-missing-imports', 'flake8']
+let g:syntastic_javascript_checkers=['eslint']
 " ctrlp
 let g:ctrlp_show_hidden = 1
 
@@ -156,6 +162,7 @@ autocmd FocusLost * nested silent! wall
 
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 
 
 " python jedi don't show popup
