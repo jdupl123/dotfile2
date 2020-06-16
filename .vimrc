@@ -38,6 +38,7 @@ Plugin 'vim-airline/vim-airline'
 " assumes git installed fzf
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-repeat'
+Plugin 'rking/ag.vim'
 "Plugin 'epeli/slimux'
 Plugin 'ervandew/supertab'
 Plugin 'tell-k/vim-autopep8'
@@ -49,6 +50,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'slim-template/vim-slim.git'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'hashivim/vim-terraform'
 
 set rtp+=~/.fzf
 " All of your Plugins must be added before the following line
@@ -122,6 +124,7 @@ set expandtab
 set list!
 set listchars=trail:.,tab:▸\ ,eol:¬,space:.       " Change the invisible characters
 set ttyfast                                " More smooth screen redrawing
+set lazyredraw
 set ruler                                  " Show ruler
 set linespace=2                            " Spacing between lines
 set noswapfile                             " Disable creation of *.swp files
@@ -130,6 +133,7 @@ set autowriteall                           " Automatically write modified files
 set spelllang=en_au                        " Set default spelling language to English (Australia)
 set shortmess+=I                           " Disable splash screen
 set noequalalways                          " Don't equalize when opening/closing windows
+set synmaxcol=4096
 
 " Searching
 set ignorecase                             " Ignore case by default when searching
@@ -165,9 +169,12 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 tabstop=2
 
+" terraform
+let g:terraform_align = 1
 
 " python jedi don't show popup
 "autocmd FileType python setlocal completeopt-=preview
+autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>

@@ -1,3 +1,4 @@
+mkdir -p ~/.vim
 cp -r colors ~/.vim/colors 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
